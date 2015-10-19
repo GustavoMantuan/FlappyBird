@@ -1,5 +1,6 @@
 package br.grupointegrado.ads.flappyBird;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -36,9 +37,11 @@ public class Util {
         definicao.fixedRotation = true;
         Body corpo = mundo.createBody(definicao);
 
-        return corpo;
+return corpo;
 
     }
+
+
 
     /**
      * Cria uma forma para o corpo
@@ -60,4 +63,7 @@ public class Util {
         return forma;
 
     }
+
+
+
 }

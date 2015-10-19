@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -16,7 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
  * Created by Dorga on 28/09/2015.
  */
 public class TelaJogo extends TelaBase {
-
 
     private OrthographicCamera camera; //camera do jogo
     private World mundo; //representa o mundo do Box2D
@@ -48,17 +48,12 @@ public class TelaJogo extends TelaBase {
     private void initPassaro() {
 //        BodyDef def = new BodyDef();
 //        def.type = BodyDef.BodyType.DynamicBody;
-//        float y = (Gdx.graphics.getWidth() / 2 / ESCALA) / PIXEL_METRO + 2;
-//
-//        float x = (Gdx.graphics.getHeight() / 2 / ESCALA) / PIXEL_METRO + 2;
-//        def.position.set(x, y);
-//        def.fixedRotation = true;
-//        Body corpo = mundo.createBody(def);
-//        CircleShape shape = new CircleShape();
-//        shape.setRadius(20 / PIXEL_METRO);
-//        Fixture fixacao = corpo.createFixture(shape, 1);
-//        shape.dispose();
-        passaro = new Passaro(mundo, camera, null);
+       // float y = (Gdx.graphics.getWidth() / 2 / ESCALA) / PIXEL_METRO + 2;
+        //float x = (Gdx.graphics.getHeight() / 2 / ESCALA) / PIXEL_METRO + 2;
+        //Body corpo = mundo.createBody(def);
+
+
+
     }
 
     /**
@@ -71,14 +66,22 @@ public class TelaJogo extends TelaBase {
         Gdx.gl.glClearColor(0.25f,0.25f,0.25f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        capturaTeclas();
         atualiziar(delta);
         renderizar(delta);
-
-//        camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
-//        camera.update();
-//
-//        mundo.step(delta, 6, 2);
         debug.render(mundo, camera.combined.cpy().scl(Util.PIXEL_METRO));
+
+
+    }
+
+    private boolean pulando = false;
+    private void capturaTeclas() {
+        pulando = false;
+        if (Gdx.input.justTouched()){
+            pulando = true;
+        }
+
     }
 
     private void renderizar(float delta) {
@@ -86,8 +89,18 @@ public class TelaJogo extends TelaBase {
     }
 
     private void atualiziar(float delta) {
+        passaro.atualizar(delta);
         mundo.step(1f / 60f, 6, 2);
+        atualizarCamera();
         atualizarChao();
+        if (pulando){
+            passaro.pular();
+        }
+    }
+
+    private void atualizarCamera() {
+camera.position.x = ((passaro.getCorpo().getPosition().x * Util.PIXEL_METRO) + passaro.getLargura());
+        camera.update();
     }
 
     private void atualizarChao() {

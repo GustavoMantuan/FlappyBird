@@ -25,6 +25,7 @@ import java.util.Map;
 public class BodyEditorLoader {
 
 	// Model
+
 	private final Model model;
 
 	// Reusable stuff
@@ -198,7 +199,7 @@ public class BodyEditorLoader {
 		rbModel.origin.y = originElem.getFloat("y");
 
 		// polygons
-		JsonValue polygonsElem = bodyElem.getChild("polygons");	
+		JsonValue polygonsElem = bodyElem.getChild("polygons");
 		for (; polygonsElem != null ;polygonsElem = polygonsElem.next()){
 
 			PolygonModel polygon = new PolygonModel();

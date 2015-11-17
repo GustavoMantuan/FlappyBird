@@ -30,17 +30,16 @@ public class Util {
      * @param y
      * @return
      */
-    public static Body criarCorpo(World mundo, BodyDef.BodyType tipo, float x, float y){
+    public static Body criarCorpo(World mundo, BodyDef.BodyType tipo, float x, float y) {
         BodyDef definicao = new BodyDef();
         definicao.type = tipo;
-        definicao.position.set(x, y);
-        definicao.fixedRotation = true;
+        definicao.position.set(x,y);
+        definicao.fixedRotation = true; // corpo nao vai rotacionar quando ocorrrer uma colisão.
+
         Body corpo = mundo.createBody(definicao);
 
-return corpo;
-
+        return corpo;
     }
-
 
 
     /**
@@ -50,18 +49,17 @@ return corpo;
      * @param nome
      * @return
      */
-    public static Fixture criaForma(Body corpo, Shape shape, String nome){
+    public static Fixture criarForma(Body corpo, Shape shape, String nome) {
         FixtureDef definicao = new FixtureDef();
-        definicao.density = 1; //densidade
-        definicao.friction = 0.06f; //atrito entre um corpo e outro
-        definicao.restitution = 0.3f; //elasticidade
+        definicao.density = 1; // densidade do corpo.
+        definicao.friction = 0.06f; // fricção/atrito entre o corpo e o outro.
+        definicao.restitution = 0.3f; // elasticidade do corpo.
         definicao.shape = shape;
-        Fixture forma = corpo.createFixture(definicao);
 
-        forma.setUserData(nome);
+        Fixture forma = corpo.createFixture(definicao);
+        forma.setUserData(nome); // identificação da forma.
 
         return forma;
-
     }
 
 
